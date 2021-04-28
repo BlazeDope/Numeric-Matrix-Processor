@@ -1,2 +1,2 @@
 # Numeric-Matrix-Processor
-Not yet implemented
+This is a simple matrix processor
