@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Apr 27 21:39:16 2021
+
+@author: sebas
+"""
+
 def create_array():
     array = []
     inp = input()
@@ -24,9 +31,12 @@ def stringify(array):
     string = ''
     for i in range(len(array)):
         for j in range(len(array[0])):
-            string += f'" "{str(array[i][j])}'
+            string += f' {str(array[i][j])}'
+            string = string.lstrip()
         string += '\n'
     return string
+
+
 
 def main():
     cond = True
@@ -36,10 +46,10 @@ def main():
         gg = sum_array(arr, arr2)
         if not gg:
             cond = gg
-            return 'ERROR'
+            print('ERROR')
         else:
-            print(gg)
-
-
+            print(stringify(gg))
+        
+        
 if __name__ == '__main__':
     main()
