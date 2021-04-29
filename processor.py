@@ -5,11 +5,9 @@ Created on Tue Apr 27 21:39:16 2021
 @author: sebas
 """
 
-def create_array():
+def create_array(i):
     array = []
-    inp = input()
-    rowcol = [int(x) for x in inp.split(' ')]
-    for _ in range(rowcol[0]):
+    for _ in range(i[0]):
         a = input()
         temp = [int(x) for x in a.split(' ')]
         array.append(temp)
@@ -27,6 +25,14 @@ def sum_array(array1, array2):
         return False
 
 
+def mult_k(array, c):
+    result = []
+    for i in range(len(array)):
+        temp = [c * array[i][j] for j in range(len(array[0]))]
+        result.append(temp)
+    return result
+
+
 def stringify(array):
     string = ''
     for i in range(len(array)):
@@ -37,19 +43,21 @@ def stringify(array):
     return string
 
 
-
 def main():
-    cond = True
-    while cond:
-        arr = create_array()
-        arr2 = create_array()
-        gg = sum_array(arr, arr2)
-        if not gg:
-            cond = gg
+    inp = list(map(int, input().split()))
+    arr = create_array(inp)
+    inp2 = list(map(int, input().split()))
+    if len(inp2) >= 2:
+        arr2 = create_array(inp2)
+        arr_sum = sum_array(arr, arr2)
+        if not arr_sum:
             print('ERROR')
         else:
-            print(stringify(gg))
-        
-        
+            print(stringify(arr_sum))
+    elif len(inp2) == 1:
+        suma = mult_k(arr, inp2)
+        print(stringify(suma))
+
+
 if __name__ == '__main__':
     main()
