@@ -27,10 +27,15 @@ def sum_array(array1, array2):
 
 def mult_k(array, c):
     result = []
-    for i in range(len(array)):
-        temp = [c * array[i][j] for j in range(len(array[0]))]
+    try:
+        for i in range(len(array)):
+            temp = [c * array[i][j] for j in range(len(array[0]))]
+            result.append(temp)
+    except TypeError:
+        temp = [c * array[j] for j in range(len(array))]
         result.append(temp)
     return result
+
 
 
 def stringify(array):
@@ -55,8 +60,8 @@ def main():
         else:
             print(stringify(arr_sum))
     elif len(inp2) == 1:
-        suma = mult_k(arr, inp2)
-        print(stringify(suma))
+        mul = mult_k(arr, inp2[0])
+        print(stringify(mul))
 
 
 if __name__ == '__main__':
