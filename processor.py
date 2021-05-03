@@ -7,12 +7,15 @@ Created on Tue Apr 27 21:39:16 2021
 
 def create_array(i):
     array = []
-    for _ in range(i[0]):
-        a = input()
-        temp = [int(x) for x in a.split(' ')]
-        array.append(temp)
+    try:
+        for _ in range(i[0]):
+            a = input()
+            temp = [float(x) for x in a.split(' ')]
+            array.append(temp)
+    except ValueError:
+        print('Please enter again')
+        create_array()
     return array
-
 
 def sum_array(array1, array2):
     array = []
@@ -37,31 +40,72 @@ def mult_k(array, c):
     return result
 
 
-
 def stringify(array):
     string = ''
     for i in range(len(array)):
         for j in range(len(array[0])):
             string += f' {str(array[i][j])}'
-            string = string.lstrip()
         string += '\n'
     return string
 
 
-def main():
-    inp = list(map(int, input().split()))
+def main_menu():
+    print('1. Add matrices\n2. Multiply matrix by a constant\n3. Multiply matrices'
+          '\n0. Exit')
+    i = input('Your choice: ')
+    return i
+
+
+def multiply(arr1, arr2):
+    if len(arr1[0]) == len(arr2):
+        return [[sum(x * y for x, y in zip(a, c)) for c in zip(*arr2)] for a in arr1]
+    else:
+        return False
+
+
+def short():
+    inp = list(map(int, input('Enter size of first matrix: ').split()))
+    print('Enter first matrix:')
     arr = create_array(inp)
-    inp2 = list(map(int, input().split()))
-    if len(inp2) >= 2:
-        arr2 = create_array(inp2)
-        arr_sum = sum_array(arr, arr2)
-        if not arr_sum:
-            print('ERROR')
-        else:
-            print(stringify(arr_sum))
-    elif len(inp2) == 1:
-        mul = mult_k(arr, inp2[0])
-        print(stringify(mul))
+    inp2 = list(map(int, input('Enter size of second matrix: ').split()))
+    print('Enter second matrix:')
+    arr2 = create_array(inp2)
+    return arr, arr2
+
+
+def main():
+    while True:
+        ans = main_menu()
+
+        if ans == '1':
+            arrays = short()
+            arr_sum = sum_array(arrays[0], arrays[1])
+            if not arr_sum:
+                print('The operation cannot be performed.\n')
+            else:
+                print('The result is:\n')
+                print(stringify(arr_sum))
+
+        elif ans == '2':
+            inp = list(map(int, input('Enter size of matrix: ').split()))
+            print('Enter matrix:')
+            arr = create_array(inp)
+            inp2 = int(input('Enter constant: '))
+            mul = mult_k(arr, inp2)
+            print('The result is:\n')
+            print(stringify(mul))
+
+        elif ans == '3':
+            arrays = short()
+            m = multiply(arrays[0], arrays[1])
+            if not m:
+                print('The operation cannot be performed.\n')
+            else:
+                print('The result is:\n')
+                print(stringify(m))
+
+        elif ans == '0':
+            break
 
 
 if __name__ == '__main__':
